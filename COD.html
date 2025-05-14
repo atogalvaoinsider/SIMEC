@@ -211,13 +211,11 @@
        3
       </span>
      </button>
-     <button aria-label="Logout" class="flex items-center gap-2 bg-[#5B2C91] hover:bg-[#A087C2] transition-colors px-3 py-2 rounded-md font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#A087C2]" id="btnLogout">
-      <i class="fas fa-sign-out-alt">
-      </i>
-      <span>
-       Sair
-      </span>
-     </button>
+     <a href="login.html" aria-label="Logout" class="flex items-center gap-2 bg-[#5B2C91] hover:bg-[#A087C2] transition-colors px-3 py-2 rounded-md font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#A087C2]">
+  <i class="fas fa-sign-out-alt"></i>
+  <span>Sair</span>
+    </a>
+
     </div>
    </header>
    <!-- Main content -->
@@ -1503,16 +1501,6 @@
         registerModal.classList.add("hidden");
       });
 
-      // Logout button
-      document.getElementById("btnLogout").addEventListener("click", () => {
-        if (confirm("Deseja realmente sair do sistema?")) {
-          appWrapper.classList.add("hidden");
-          loginScreen.classList.remove("hidden");
-          loginForm.reset();
-          registerForm.reset();
-          greeting.textContent = "Olá, Emelly";
-        }
-      });
 
       // Initialize
       showAppDefault();
