@@ -1,0 +1,1523 @@
+<html class="scroll-smooth" lang="pt-BR">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   SIMEC - Sistema de Monitoramento de Equipamentos Corporativos
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat&amp;family=Open+Sans&amp;family=Poppins&amp;family=Roboto&amp;display=swap" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <style>
+   body {
+      font-family: "Montserrat", "Roboto", "Poppins", "Open Sans", sans-serif;
+    }
+    /* Custom scrollbar for sidebar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #5b2c91;
+    }
+    ::-webkit-scrollbar-thumb {
+      background-color: #a087c2;
+      border-radius: 10px;
+      border: 2px solid #5b2c91;
+    }
+  </style>
+ </head>
+ <body class="bg-[#F2F2F2] min-h-screen flex flex-col">
+  <!-- Login Screen -->
+  <main class="flex-1 flex items-center justify-center bg-[#F2F2F2]" id="loginScreen" role="main" aria-label="Tela de login do sistema SIMEC">
+   <section class="bg-white rounded-lg shadow-lg p-8 w-full max-w-md mx-4">
+    <h1 class="text-3xl font-bold text-[#5B2C91] mb-6 text-center select-none">
+     SIMEC
+    </h1>
+    <form class="flex flex-col gap-5" id="loginForm" novalidate>
+     <div>
+      <label class="block text-sm font-medium text-gray-700 mb-1 select-none" for="emailLogin">
+       E-mail corporativo
+      </label>
+      <input aria-required="true" autocomplete="username" class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#5B2C91] focus:border-transparent" id="emailLogin" name="emailLogin" placeholder="seu.email@empresa.com" required="" type="email"/>
+     </div>
+     <div>
+      <label class="block text-sm font-medium text-gray-700 mb-1 select-none" for="senhaLogin">
+       Senha
+      </label>
+      <input aria-required="true" autocomplete="current-password" class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#5B2C91] focus:border-transparent" id="senhaLogin" name="senhaLogin" placeholder="********" required="" type="password"/>
+     </div>
+     <button aria-label="Entrar no sistema" class="bg-[#5B2C91] hover:bg-[#A087C2] text-white font-semibold py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#A087C2]" type="submit">
+      Entrar
+     </button>
+    </form>
+    <button aria-label="Cadastrar novo usuário" class="mt-4 w-full text-[#5B2C91] font-semibold hover:text-[#A087C2] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#5B2C91]" id="btnOpenRegister" type="button">
+     Cadastrar-se
+    </button>
+   </section>
+  </main>
+  <!-- Register Modal -->
+  <div aria-labelledby="registerModalTitle" aria-modal="true" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden" id="registerModal" role="dialog">
+   <div class="bg-white rounded-lg max-w-md w-full mx-4 p-6 shadow-lg relative" role="document">
+    <button aria-label="Fechar modal de cadastro" class="absolute top-3 right-3 text-gray-500 hover:text-[#5B2C91] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#5B2C91]" id="closeRegisterModal">
+     <i class="fas fa-times fa-lg">
+     </i>
+    </button>
+    <h3 class="text-xl font-semibold text-[#5B2C91] mb-4 select-none" id="registerModalTitle">
+     Cadastro de Novo Usuário
+    </h3>
+    <form class="flex flex-col gap-4" id="registerForm" novalidate>
+     <div>
+      <label class="block text-sm font-medium text-gray-700 mb-1 select-none" for="registerNome">
+       Nome completo
+      </label>
+      <input aria-required="true" class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#5B2C91] focus:border-transparent" id="registerNome" name="registerNome" placeholder="Seu nome completo" required="" type="text"/>
+     </div>
+     <div>
+      <label class="block text-sm font-medium text-gray-700 mb-1 select-none" for="registerEmail">
+       E-mail corporativo
+      </label>
+      <input aria-required="true" autocomplete="email" class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#5B2C91] focus:border-transparent" id="registerEmail" name="registerEmail" placeholder="seu.email@empresa.com" required="" type="email"/>
+     </div>
+     <div>
+      <label class="block text-sm font-medium text-gray-700 mb-1 select-none" for="registerSenha">
+       Senha
+      </label>
+      <input aria-required="true" autocomplete="new-password" class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#5B2C91] focus:border-transparent" id="registerSenha" name="registerSenha" placeholder="********" required="" type="password"/>
+     </div>
+     <div>
+      <label class="block text-sm font-medium text-gray-700 mb-1 select-none" for="registerSenhaConfirm">
+       Confirmar senha
+      </label>
+      <input aria-required="true" autocomplete="new-password" class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#5B2C91] focus:border-transparent" id="registerSenhaConfirm" name="registerSenhaConfirm" placeholder="********" required="" type="password"/>
+     </div>
+     <div>
+      <label class="block text-sm font-medium text-gray-700 mb-1 select-none" for="registerSetor">
+       Setor
+      </label>
+      <select aria-required="true" class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#5B2C91] focus:border-transparent" id="registerSetor" name="registerSetor" required="">
+       <option value="" disabled="" selected="">
+        Selecione o setor
+       </option>
+       <option value="Produção">
+        Produção
+       </option>
+       <option value="Logística">
+        Logística
+       </option>
+       <option value="Manutenção">
+        Manutenção
+       </option>
+       <option value="Administração">
+        Administração
+       </option>
+       <option value="TI Infra">
+        TI Infra
+       </option>
+       <option value="Redes">
+        Redes
+       </option>
+      </select>
+     </div>
+     <div class="flex justify-end gap-3">
+      <button class="bg-[#5B2C91] hover:bg-[#A087C2] text-white font-semibold px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#A087C2]" type="submit">
+       Cadastrar
+      </button>
+      <button class="bg-gray-300 hover:bg-gray-400 text-gray-700 font-semibold px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400" id="cancelRegister" type="button">
+       Cancelar
+      </button>
+     </div>
+    </form>
+   </div>
+  </div>
+  <!-- Main App Wrapper -->
+  <div class="hidden md:flex flex-1 md:ml-64 flex flex-col min-h-screen" id="appWrapper" role="application" aria-label="Sistema SIMEC">
+   <!-- Sidebar -->
+   <aside aria-label="Menu lateral" class="fixed top-0 left-0 h-full w-64 bg-[#5B2C91] text-white flex flex-col z-30">
+    <div class="flex items-center gap-3 px-6 py-6 border-b border-[#A087C2] select-none" tabindex="0">
+     <h1 class="text-2xl font-bold">
+      SIMEC
+     </h1>
+    </div>
+    <nav aria-label="Menu principal" class="flex-1 overflow-y-auto mt-6" role="navigation">
+     <ul class="flex flex-col space-y-1 px-4">
+      <li>
+       <a aria-current="page" class="flex items-center gap-3 px-4 py-3 rounded-md hover:bg-[#A087C2] transition-colors font-semibold" href="#home" id="menuHome">
+        <i class="fas fa-home fa-lg w-5 text-white">
+        </i>
+        <span>
+         Home
+        </span>
+       </a>
+      </li>
+      <li>
+       <a class="flex items-center gap-3 px-4 py-3 rounded-md hover:bg-[#A087C2] transition-colors font-semibold" href="#equipamentos" id="menuEquipamentos">
+        <i class="fas fa-cogs fa-lg w-5 text-white">
+        </i>
+        <span>
+         Equipamentos
+        </span>
+       </a>
+      </li>
+      <li>
+       <a class="flex items-center gap-3 px-4 py-3 rounded-md hover:bg-[#A087C2] transition-colors font-semibold" href="#controle-tecnicos" id="menuControleTecnicos">
+        <i class="fas fa-user-cog fa-lg w-5 text-white">
+        </i>
+        <span>
+         Controle de Técnicos
+        </span>
+       </a>
+      </li>
+      <li>
+       <a class="flex items-center gap-3 px-4 py-3 rounded-md hover:bg-[#A087C2] transition-colors font-semibold" href="#chamados" id="menuChamados">
+        <i class="fas fa-ticket-alt fa-lg w-5 text-white">
+        </i>
+        <span>
+         Chamados
+        </span>
+       </a>
+      </li>
+      <li>
+       <a class="flex items-center gap-3 px-4 py-3 rounded-md hover:bg-[#A087C2] transition-colors font-semibold" href="#relatorios" id="menuRelatorios">
+        <i class="fas fa-chart-line fa-lg w-5 text-white">
+        </i>
+        <span>
+         Relatórios
+        </span>
+       </a>
+      </li>
+      <li>
+       <a class="flex items-center gap-3 px-4 py-3 rounded-md hover:bg-[#A087C2] transition-colors font-semibold" href="#configuracoes" id="menuConfiguracoes">
+        <i class="fas fa-cog fa-lg w-5 text-white">
+        </i>
+        <span>
+         Configurações
+        </span>
+       </a>
+      </li>
+     </ul>
+    </nav>
+   </aside>
+   <!-- Topbar -->
+   <header class="flex justify-between items-center bg-[#1B1F3B] text-white px-6 py-4 shadow-md sticky top-0 z-20" role="banner">
+    <div class="text-lg font-semibold select-none" id="greeting">
+     Olá, Emelly
+    </div>
+    <div class="flex items-center gap-6">
+     <button aria-expanded="false" aria-haspopup="true" aria-label="Notificações" class="relative text-white hover:text-[#A087C2] transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#A087C2]" id="btnOpenNotifications">
+      <i class="fas fa-bell fa-lg">
+      </i>
+      <span class="absolute -top-1 -right-1 bg-red-600 rounded-full w-4 h-4 flex items-center justify-center text-xs font-bold" id="notificationCount">
+       3
+      </span>
+     </button>
+     <button aria-label="Logout" class="flex items-center gap-2 bg-[#5B2C91] hover:bg-[#A087C2] transition-colors px-3 py-2 rounded-md font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#A087C2]" id="btnLogout">
+      <i class="fas fa-sign-out-alt">
+      </i>
+      <span>
+       Sair
+      </span>
+     </button>
+    </div>
+   </header>
+   <!-- Main content -->
+   <main class="flex-1 p-6 overflow-auto" id="mainContent" tabindex="0">
+    <!-- Home Section -->
+    <section class="hidden max-w-5xl mx-auto bg-white rounded-lg shadow-md p-6" id="homeSection" role="region" aria-label="Página inicial">
+     <h2 class="text-2xl font-semibold text-[#5B2C91] mb-4 select-none">
+      Bem-vindo ao SIMEC
+     </h2>
+     <p class="text-gray-700 leading-relaxed mb-4">
+      SIMEC - Sistema de Monitoramento de Equipamentos Corporativos é uma aplicação fictícia desenvolvida para demonstrar habilidades em desenvolvimento full-stack, com foco em controle, manutenção e comunicação entre setores e técnicos.
+     </p>
+     <p class="text-gray-700 leading-relaxed mb-4">
+      Nossa missão é garantir a gestão eficiente e o monitoramento contínuo dos equipamentos industriais, facilitando a comunicação entre técnicos e setores responsáveis para assegurar a máxima produtividade e qualidade.
+     </p>
+     <p class="text-gray-700 leading-relaxed">
+      Este sistema oferece funcionalidades como controle de equipamentos, chamados, relatórios detalhados, e comunicação integrada para negociação de prazos e resolução rápida de problemas.
+     </p>
+    </section>
+    <!-- Equipamentos Section -->
+    <section aria-labelledby="tabEquipamentosTitle" class="hidden max-w-full mx-auto bg-white rounded-lg shadow-md p-6" id="equipamentosSection" role="region" aria-label="Gestão de equipamentos">
+     <h2 class="text-2xl font-semibold text-[#5B2C91] mb-6 select-none" id="tabEquipamentosTitle">
+      Equipamentos
+     </h2>
+     <!-- Filters and Search -->
+     <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+      <div class="flex flex-col sm:flex-row gap-4 sm:gap-6 items-center">
+       <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1 select-none" for="filterSetorEquip">
+         Filtrar por Setor
+        </label>
+        <select class="rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#5B2C91] focus:border-transparent w-40" id="filterSetorEquip">
+         <option value="">
+          Todos
+         </option>
+         <option value="Produção">
+          Produção
+         </option>
+         <option value="Logística">
+          Logística
+         </option>
+         <option value="Manutenção">
+          Manutenção
+         </option>
+         <option value="Administração">
+          Administração
+         </option>
+         <option value="TI Infra">
+          TI Infra
+         </option>
+         <option value="Redes">
+          Redes
+         </option>
+        </select>
+       </div>
+       <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1 select-none" for="filterStatusEquip">
+         Filtrar por Status
+        </label>
+        <select class="rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#5B2C91] focus:border-transparent w-40" id="filterStatusEquip">
+         <option value="">
+          Todos
+         </option>
+         <option value="Ativo">
+          Ativo
+         </option>
+         <option value="Aguardando">
+          Aguardando
+         </option>
+         <option value="Em manutenção">
+          Em manutenção
+         </option>
+        </select>
+       </div>
+      </div>
+      <div class="flex flex-col w-full sm:w-64">
+       <label class="block text-sm font-medium text-gray-700 mb-1 select-none" for="searchInputEquip">
+        Buscar por ID ou Técnico
+       </label>
+       <input class="rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#5B2C91] focus:border-transparent" id="searchInputEquip" placeholder="Digite ID ou nome do técnico" type="text"/>
+      </div>
+     </div>
+     <!-- Table -->
+     <div class="overflow-x-auto">
+      <table class="min-w-full border border-gray-300 rounded-md overflow-hidden">
+       <thead class="bg-[#5B2C91] text-white select-none">
+        <tr>
+         <th class="text-left px-4 py-3 font-semibold" scope="col" style="min-width: 100px">
+          ID do Aparelho
+         </th>
+         <th class="text-left px-4 py-3 font-semibold" scope="col" style="min-width: 140px">
+          Status
+         </th>
+         <th class="text-left px-4 py-3 font-semibold" scope="col" style="min-width: 140px">
+          Setor
+         </th>
+         <th class="text-left px-4 py-3 font-semibold" scope="col" style="min-width: 180px">
+          Técnico Responsável
+         </th>
+         <th class="text-center px-4 py-3 font-semibold" scope="col" style="min-width: 140px">
+          Ações
+         </th>
+        </tr>
+       </thead>
+       <tbody class="bg-white divide-y divide-gray-200" id="tableBodyEquip">
+        <tr class="hover:bg-[#F9F9F9]">
+         <td class="px-4 py-3">
+          001
+         </td>
+         <td class="px-4 py-3">
+          <span class="inline-block px-3 py-1 rounded-full text-white text-sm font-semibold bg-red-600 select-none">
+           Em manutenção
+          </span>
+         </td>
+         <td class="px-4 py-3">
+          Produção
+         </td>
+         <td class="px-4 py-3">
+          João Silva
+         </td>
+         <td class="px-4 py-3 text-center">
+          <button class="send-message-btn bg-[#5B2C91] hover:bg-[#A087C2] text-white px-3 py-1 rounded-md text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#A087C2]" data-tecnico="João Silva">
+           Enviar Mensagem
+          </button>
+         </td>
+        </tr>
+        <tr class="hover:bg-[#F9F9F9]">
+         <td class="px-4 py-3">
+          002
+         </td>
+         <td class="px-4 py-3">
+          <span class="inline-block px-3 py-1 rounded-full text-white text-sm font-semibold bg-green-600 select-none">
+           Ativo
+          </span>
+         </td>
+         <td class="px-4 py-3">
+          Logística
+         </td>
+         <td class="px-4 py-3">
+          Maria Oliveira
+         </td>
+         <td class="px-4 py-3 text-center">
+          <button class="send-message-btn bg-[#5B2C91] hover:bg-[#A087C2] text-white px-3 py-1 rounded-md text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#A087C2]" data-tecnico="Maria Oliveira">
+           Enviar Mensagem
+          </button>
+         </td>
+        </tr>
+        <tr class="hover:bg-[#F9F9F9]">
+         <td class="px-4 py-3">
+          003
+         </td>
+         <td class="px-4 py-3">
+          <span class="inline-block px-3 py-1 rounded-full text-white text-sm font-semibold bg-orange-500 select-none">
+           Aguardando
+          </span>
+         </td>
+         <td class="px-4 py-3">
+          Manutenção
+         </td>
+         <td class="px-4 py-3">
+          Carlos Mendes
+         </td>
+         <td class="px-4 py-3 text-center">
+          <button class="send-message-btn bg-[#5B2C91] hover:bg-[#A087C2] text-white px-3 py-1 rounded-md text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#A087C2]" data-tecnico="Carlos Mendes">
+           Enviar Mensagem
+          </button>
+         </td>
+        </tr>
+        <tr class="hover:bg-[#F9F9F9]">
+         <td class="px-4 py-3">
+          004
+         </td>
+         <td class="px-4 py-3">
+          <span class="inline-block px-3 py-1 rounded-full text-white text-sm font-semibold bg-green-600 select-none">
+           Ativo
+          </span>
+         </td>
+         <td class="px-4 py-3">
+          Produção
+         </td>
+         <td class="px-4 py-3">
+          Ana Paula
+         </td>
+         <td class="px-4 py-3 text-center">
+          <button class="send-message-btn bg-[#5B2C91] hover:bg-[#A087C2] text-white px-3 py-1 rounded-md text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#A087C2]" data-tecnico="Ana Paula">
+           Enviar Mensagem
+          </button>
+         </td>
+        </tr>
+        <tr class="hover:bg-[#F9F9F9]">
+         <td class="px-4 py-3">
+          005
+         </td>
+         <td class="px-4 py-3">
+          <span class="inline-block px-3 py-1 rounded-full text-white text-sm font-semibold bg-red-600 select-none">
+           Em manutenção
+          </span>
+         </td>
+         <td class="px-4 py-3">
+          Logística
+         </td>
+         <td class="px-4 py-3">
+          Bruno Santos
+         </td>
+         <td class="px-4 py-3 text-center">
+          <button class="send-message-btn bg-[#5B2C91] hover:bg-[#A087C2] text-white px-3 py-1 rounded-md text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#A087C2]" data-tecnico="Bruno Santos">
+           Enviar Mensagem
+          </button>
+         </td>
+        </tr>
+        <tr class="hover:bg-[#F9F9F9]">
+         <td class="px-4 py-3">
+          006
+         </td>
+         <td class="px-4 py-3">
+          <span class="inline-block px-3 py-1 rounded-full text-white text-sm font-semibold bg-orange-500 select-none">
+           Aguardando
+          </span>
+         </td>
+         <td class="px-4 py-3">
+          Administração
+         </td>
+         <td class="px-4 py-3">
+          Fernanda Lima
+         </td>
+         <td class="px-4 py-3 text-center">
+          <button class="send-message-btn bg-[#5B2C91] hover:bg-[#A087C2] text-white px-3 py-1 rounded-md text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#A087C2]" data-tecnico="Fernanda Lima">
+           Enviar Mensagem
+          </button>
+         </td>
+        </tr>
+        <tr class="hover:bg-[#F9F9F9]">
+         <td class="px-4 py-3">
+          007
+         </td>
+         <td class="px-4 py-3">
+          <span class="inline-block px-3 py-1 rounded-full text-white text-sm font-semibold bg-green-600 select-none">
+           Ativo
+          </span>
+         </td>
+         <td class="px-4 py-3">
+          Manutenção
+         </td>
+         <td class="px-4 py-3">
+          Lucas Ferreira
+         </td>
+         <td class="px-4 py-3 text-center">
+          <button class="send-message-btn bg-[#5B2C91] hover:bg-[#A087C2] text-white px-3 py-1 rounded-md text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#A087C2]" data-tecnico="Lucas Ferreira">
+           Enviar Mensagem
+          </button>
+         </td>
+        </tr>
+        <tr class="hover:bg-[#F9F9F9]">
+         <td class="px-4 py-3">
+          008
+         </td>
+         <td class="px-4 py-3">
+          <span class="inline-block px-3 py-1 rounded-full text-white text-sm font-semibold bg-red-600 select-none">
+           Em manutenção
+          </span>
+         </td>
+         <td class="px-4 py-3">
+          Produção
+         </td>
+         <td class="px-4 py-3">
+          Patrícia Gomes
+         </td>
+         <td class="px-4 py-3 text-center">
+          <button class="send-message-btn bg-[#5B2C91] hover:bg-[#A087C2] text-white px-3 py-1 rounded-md text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#A087C2]" data-tecnico="Patrícia Gomes">
+           Enviar Mensagem
+          </button>
+         </td>
+        </tr>
+        <tr class="hover:bg-[#F9F9F9]">
+         <td class="px-4 py-3">
+          009
+         </td>
+         <td class="px-4 py-3">
+          <span class="inline-block px-3 py-1 rounded-full text-white text-sm font-semibold bg-orange-500 select-none">
+           Aguardando
+          </span>
+         </td>
+         <td class="px-4 py-3">
+          Logística
+         </td>
+         <td class="px-4 py-3">
+          Rafael Costa
+         </td>
+         <td class="px-4 py-3 text-center">
+          <button class="send-message-btn bg-[#5B2C91] hover:bg-[#A087C2] text-white px-3 py-1 rounded-md text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#A087C2]" data-tecnico="Rafael Costa">
+           Enviar Mensagem
+          </button>
+         </td>
+        </tr>
+        <tr class="hover:bg-[#F9F9F9]">
+         <td class="px-4 py-3">
+          010
+         </td>
+         <td class="px-4 py-3">
+          <span class="inline-block px-3 py-1 rounded-full text-white text-sm font-semibold bg-green-600 select-none">
+           Ativo
+          </span>
+         </td>
+         <td class="px-4 py-3">
+          Administração
+         </td>
+         <td class="px-4 py-3">
+          Sofia Almeida
+         </td>
+         <td class="px-4 py-3 text-center">
+          <button class="send-message-btn bg-[#5B2C91] hover:bg-[#A087C2] text-white px-3 py-1 rounded-md text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#A087C2]" data-tecnico="Sofia Almeida">
+           Enviar Mensagem
+          </button>
+         </td>
+        </tr>
+        <tr class="hover:bg-[#F9F9F9]">
+         <td class="px-4 py-3">
+          011
+         </td>
+         <td class="px-4 py-3">
+          <span class="inline-block px-3 py-1 rounded-full text-white text-sm font-semibold bg-red-600 select-none">
+           Em manutenção
+          </span>
+         </td>
+         <td class="px-4 py-3">
+          Manutenção
+         </td>
+         <td class="px-4 py-3">
+          Thiago Martins
+         </td>
+         <td class="px-4 py-3 text-center">
+          <button class="send-message-btn bg-[#5B2C91] hover:bg-[#A087C2] text-white px-3 py-1 rounded-md text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#A087C2]" data-tecnico="Thiago Martins">
+           Enviar Mensagem
+          </button>
+         </td>
+        </tr>
+        <tr class="hover:bg-[#F9F9F9]">
+         <td class="px-4 py-3">
+          012
+         </td>
+         <td class="px-4 py-3">
+          <span class="inline-block px-3 py-1 rounded-full text-white text-sm font-semibold bg-orange-500 select-none">
+           Aguardando
+          </span>
+         </td>
+         <td class="px-4 py-3">
+          Produção
+         </td>
+         <td class="px-4 py-3">
+          Juliana Ribeiro
+         </td>
+         <td class="px-4 py-3 text-center">
+          <button class="send-message-btn bg-[#5B2C91] hover:bg-[#A087C2] text-white px-3 py-1 rounded-md text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#A087C2]" data-tecnico="Juliana Ribeiro">
+           Enviar Mensagem
+          </button>
+         </td>
+        </tr>
+        <tr class="hover:bg-[#F9F9F9]">
+         <td class="px-4 py-3">
+          013
+         </td>
+         <td class="px-4 py-3">
+          <span class="inline-block px-3 py-1 rounded-full text-white text-sm font-semibold bg-green-600 select-none">
+           Ativo
+          </span>
+         </td>
+         <td class="px-4 py-3">
+          Logística
+         </td>
+         <td class="px-4 py-3">
+          Eduardo Souza
+         </td>
+         <td class="px-4 py-3 text-center">
+          <button class="send-message-btn bg-[#5B2C91] hover:bg-[#A087C2] text-white px-3 py-1 rounded-md text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#A087C2]" data-tecnico="Eduardo Souza">
+           Enviar Mensagem
+          </button>
+         </td>
+        </tr>
+        <tr class="hover:bg-[#F9F9F9]">
+         <td class="px-4 py-3">
+          014
+         </td>
+         <td class="px-4 py-3">
+          <span class="inline-block px-3 py-1 rounded-full text-white text-sm font-semibold bg-red-600 select-none">
+           Em manutenção
+          </span>
+         </td>
+         <td class="px-4 py-3">
+          Administração
+         </td>
+         <td class="px-4 py-3">
+          Mariana Costa
+         </td>
+         <td class="px-4 py-3 text-center">
+          <button class="send-message-btn bg-[#5B2C91] hover:bg-[#A087C2] text-white px-3 py-1 rounded-md text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#A087C2]" data-tecnico="Mariana Costa">
+           Enviar Mensagem
+          </button>
+         </td>
+        </tr>
+        <tr class="hover:bg-[#F9F9F9]">
+         <td class="px-4 py-3">
+          015
+         </td>
+         <td class="px-4 py-3">
+          <span class="inline-block px-3 py-1 rounded-full text-white text-sm font-semibold bg-orange-500 select-none">
+           Aguardando
+          </span>
+         </td>
+         <td class="px-4 py-3">
+          Manutenção
+         </td>
+         <td class="px-4 py-3">
+          Ricardo Alves
+         </td>
+         <td class="px-4 py-3 text-center">
+          <button class="send-message-btn bg-[#5B2C91] hover:bg-[#A087C2] text-white px-3 py-1 rounded-md text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#A087C2]" data-tecnico="Ricardo Alves">
+           Enviar Mensagem
+          </button>
+         </td>
+        </tr>
+       </tbody>
+      </table>
+     </div>
+     <!-- Pagination -->
+     <nav aria-label="Paginação" class="mt-6 flex justify-center items-center gap-2 select-none">
+      <button class="px-3 py-1 rounded-md bg-[#5B2C91] text-white font-semibold hover:bg-[#A087C2] disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#A087C2]" disabled="" id="prevPageEquip">
+       <i class="fas fa-chevron-left">
+       </i>
+      </button>
+      <span class="font-semibold text-[#5B2C91]" id="pageInfoEquip">
+       Página 1 de 3
+      </span>
+      <button class="px-3 py-1 rounded-md bg-[#5B2C91] text-white font-semibold hover:bg-[#A087C2] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#A087C2]" id="nextPageEquip">
+       <i class="fas fa-chevron-right">
+       </i>
+      </button>
+     </nav>
+    </section>
+    <!-- Chamados Section -->
+    <section aria-labelledby="chamadosTitle" class="hidden max-w-full mx-auto bg-white rounded-lg shadow-md p-6" id="chamadosSection" role="region" aria-label="Gestão de chamados">
+     <h2 class="text-2xl font-semibold text-[#5B2C91] mb-6 select-none" id="chamadosTitle">
+      Chamados
+     </h2>
+     <div class="overflow-x-auto">
+      <table class="min-w-full border border-gray-300 rounded-md overflow-hidden">
+       <thead class="bg-[#5B2C91] text-white select-none">
+        <tr>
+         <th class="text-left px-4 py-3 font-semibold" scope="col" style="min-width: 180px">
+          Nome do Solicitante
+         </th>
+         <th class="text-left px-4 py-3 font-semibold" scope="col" style="min-width: 120px">
+          ID do Equipamento
+         </th>
+         <th class="text-left px-4 py-3 font-semibold" scope="col" style="min-width: 300px">
+          Observação Detalhada
+         </th>
+         <th class="text-left px-4 py-3 font-semibold" scope="col" style="min-width: 140px">
+          Status
+         </th>
+         <th class="text-center px-4 py-3 font-semibold" scope="col" style="min-width: 180px">
+          Ações
+         </th>
+        </tr>
+       </thead>
+       <tbody class="bg-white divide-y divide-gray-200" id="tableBodyChamados">
+        <tr class="hover:bg-[#F9F9F9]">
+         <td class="px-4 py-3">
+          Lucas Ferreira
+         </td>
+         <td class="px-4 py-3">
+          008
+         </td>
+         <td class="px-4 py-3">
+          Impressora do setor de Redes não funciona.
+         </td>
+         <td class="px-4 py-3">
+          <span class="inline-block px-3 py-1 rounded-full text-white text-sm font-semibold bg-orange-500 select-none">
+           Em andamento
+          </span>
+         </td>
+         <td class="px-4 py-3 text-center flex flex-col sm:flex-row justify-center gap-2">
+          <button class="btnNegociarPrazo bg-[#A087C2] hover:bg-[#5B2C91] text-white px-3 py-1 rounded-md text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#5B2C91]" data-solicitante="Lucas Ferreira" data-id="008" data-observacao="Impressora do setor de Redes não funciona.">
+           Negociar Prazo
+          </button>
+          <button class="btnFecharChamado bg-[#5B2C91] hover:bg-[#A087C2] text-white px-3 py-1 rounded-md text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#A087C2]" data-id="008">
+           Fechar Chamado
+          </button>
+         </td>
+        </tr>
+        <tr class="hover:bg-[#F9F9F9]">
+         <td class="px-4 py-3">
+          Mariana Costa
+         </td>
+         <td class="px-4 py-3">
+          011
+         </td>
+         <td class="px-4 py-3">
+          Cabo de rede danificado, substituído no dia 02/05.
+         </td>
+         <td class="px-4 py-3">
+          <span class="inline-block px-3 py-1 rounded-full text-white text-sm font-semibold bg-green-600 select-none">
+           Finalizado
+          </span>
+         </td>
+         <td class="px-4 py-3 text-center flex flex-col sm:flex-row justify-center gap-2">
+          <button class="btnNegociarPrazo bg-[#A087C2] hover:bg-[#5B2C91] text-white px-3 py-1 rounded-md text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#5B2C91]" data-solicitante="Mariana Costa" data-id="011" data-observacao="Cabo de rede danificado, substituído no dia 02/05.">
+           Negociar Prazo
+          </button>
+          <button class="btnFecharChamado bg-[#5B2C91] hover:bg-[#A087C2] text-white px-3 py-1 rounded-md text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#A087C2]" data-id="011" disabled>
+           Fechar Chamado
+          </button>
+         </td>
+        </tr>
+        <tr class="hover:bg-[#F9F9F9]">
+         <td class="px-4 py-3">
+          Rafael Costa
+         </td>
+         <td class="px-4 py-3">
+          009
+         </td>
+         <td class="px-4 py-3">
+          Atualização de software pendente.
+         </td>
+         <td class="px-4 py-3">
+          <span class="inline-block px-3 py-1 rounded-full text-white text-sm font-semibold bg-orange-500 select-none">
+           Em andamento
+          </span>
+         </td>
+         <td class="px-4 py-3 text-center flex flex-col sm:flex-row justify-center gap-2">
+          <button class="btnNegociarPrazo bg-[#A087C2] hover:bg-[#5B2C91] text-white px-3 py-1 rounded-md text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#5B2C91]" data-solicitante="Rafael Costa" data-id="009" data-observacao="Atualização de software pendente.">
+           Negociar Prazo
+          </button>
+          <button class="btnFecharChamado bg-[#5B2C91] hover:bg-[#A087C2] text-white px-3 py-1 rounded-md text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#A087C2]" data-id="009">
+           Fechar Chamado
+          </button>
+         </td>
+        </tr>
+       </tbody>
+      </table>
+     </div>
+    </section>
+    <!-- Controle de Técnicos Section -->
+    <section aria-labelledby="controleTecnicosTitle" class="hidden max-w-full mx-auto bg-white rounded-lg shadow-md p-6" id="controleTecnicosSection" role="region" aria-label="Controle de técnicos">
+     <h2 class="text-2xl font-semibold text-[#5B2C91] mb-6 select-none" id="controleTecnicosTitle">
+      Controle de Técnicos
+     </h2>
+     <div class="overflow-x-auto">
+      <table class="min-w-full border border-gray-300 rounded-md overflow-hidden">
+       <thead class="bg-[#5B2C91] text-white select-none">
+        <tr>
+         <th class="text-left px-4 py-3 font-semibold" scope="col" style="min-width: 180px">
+          Nome Completo
+         </th>
+         <th class="text-left px-4 py-3 font-semibold" scope="col" style="min-width: 140px">
+          Setor de Atuação
+         </th>
+         <th class="text-left px-4 py-3 font-semibold" scope="col" style="min-width: 180px">
+          Contato
+         </th>
+         <th class="text-left px-4 py-3 font-semibold" scope="col" style="min-width: 220px">
+          Equipamentos Atribuídos
+         </th>
+        </tr>
+       </thead>
+       <tbody class="bg-white divide-y divide-gray-200">
+        <tr class="hover:bg-[#F9F9F9]">
+         <td class="px-4 py-3">
+          João Silva
+         </td>
+         <td class="px-4 py-3">
+          Produção
+         </td>
+         <td class="px-4 py-3">
+          joao.silva@simec.com.br
+         </td>
+         <td class="px-4 py-3">
+          001, 004
+         </td>
+        </tr>
+        <tr class="hover:bg-[#F9F9F9]">
+         <td class="px-4 py-3">
+          Maria Oliveira
+         </td>
+         <td class="px-4 py-3">
+          Logística
+         </td>
+         <td class="px-4 py-3">
+          maria.oliveira@simec.com.br
+         </td>
+         <td class="px-4 py-3">
+          002, 005
+         </td>
+        </tr>
+        <tr class="hover:bg-[#F9F9F9]">
+         <td class="px-4 py-3">
+          Carlos Mendes
+         </td>
+         <td class="px-4 py-3">
+          Manutenção
+         </td>
+         <td class="px-4 py-3">
+          carlos.mendes@simec.com.br
+         </td>
+         <td class="px-4 py-3">
+          003, 007
+         </td>
+        </tr>
+        <tr class="hover:bg-[#F9F9F9]">
+         <td class="px-4 py-3">
+          Ana Paula
+         </td>
+         <td class="px-4 py-3">
+          Produção
+         </td>
+         <td class="px-4 py-3">
+          ana.paula@simec.com.br
+         </td>
+         <td class="px-4 py-3">
+          006, 008
+         </td>
+        </tr>
+        <tr class="hover:bg-[#F9F9F9]">
+         <td class="px-4 py-3">
+          Bruno Santos
+         </td>
+         <td class="px-4 py-3">
+          Logística
+         </td>
+         <td class="px-4 py-3">
+          bruno.santos@simec.com.br
+         </td>
+         <td class="px-4 py-3">
+          009, 010
+         </td>
+        </tr>
+       </tbody>
+      </table>
+     </div>
+    </section>
+    <!-- Relatórios Section -->
+    <section aria-labelledby="relatoriosTitle" class="hidden max-w-full mx-auto bg-white rounded-lg shadow-md p-6" id="relatoriosSection" role="region" aria-label="Relatórios do sistema">
+     <h2 class="text-2xl font-semibold text-[#5B2C91] mb-6 select-none" id="relatoriosTitle">
+      Relatórios
+     </h2>
+     <div class="overflow-x-auto">
+      <table class="min-w-full border border-gray-300 rounded-md overflow-hidden">
+       <thead class="bg-[#5B2C91] text-white select-none">
+        <tr>
+         <th class="text-left px-4 py-3 font-semibold" scope="col" style="min-width: 150px">
+          ID do Equipamento
+         </th>
+         <th class="text-left px-4 py-3 font-semibold" scope="col" style="min-width: 300px">
+          Observação do Técnico
+         </th>
+         <th class="text-left px-4 py-3 font-semibold" scope="col" style="min-width: 140px">
+          Status
+         </th>
+         <th class="text-left px-4 py-3 font-semibold" scope="col" style="min-width: 180px">
+          Responsável / Setor
+         </th>
+        </tr>
+       </thead>
+       <tbody class="bg-white divide-y divide-gray-200">
+        <tr class="hover:bg-[#F9F9F9]">
+         <td class="px-4 py-3">
+          004
+         </td>
+         <td class="px-4 py-3">
+          Impressora não funciona mais
+         </td>
+         <td class="px-4 py-3">
+          <span class="inline-block px-3 py-1 rounded-full text-white text-sm font-semibold bg-red-600 select-none">
+           Em manutenção
+          </span>
+         </td>
+         <td class="px-4 py-3">
+          Infraestrutura
+         </td>
+        </tr>
+        <tr class="hover:bg-[#F9F9F9]">
+         <td class="px-4 py-3">
+          007
+         </td>
+         <td class="px-4 py-3">
+          Cabos de rede rompidos
+         </td>
+         <td class="px-4 py-3">
+          <span class="inline-block px-3 py-1 rounded-full text-white text-sm font-semibold bg-orange-500 select-none">
+           Em andamento
+          </span>
+         </td>
+         <td class="px-4 py-3">
+          Redes
+         </td>
+        </tr>
+        <tr class="hover:bg-[#F9F9F9]">
+         <td class="px-4 py-3">
+          010
+         </td>
+         <td class="px-4 py-3">
+          Atualização de software concluída
+         </td>
+         <td class="px-4 py-3">
+          <span class="inline-block px-3 py-1 rounded-full text-white text-sm font-semibold bg-green-600 select-none">
+           Ativo
+          </span>
+         </td>
+         <td class="px-4 py-3">
+          TI Infra
+         </td>
+        </tr>
+        <tr class="hover:bg-[#F9F9F9]">
+         <td class="px-4 py-3">
+          012
+         </td>
+         <td class="px-4 py-3">
+          Manutenção preventiva agendada
+         </td>
+         <td class="px-4 py-3">
+          <span class="inline-block px-3 py-1 rounded-full text-white text-sm font-semibold bg-orange-500 select-none">
+           Em andamento
+          </span>
+         </td>
+         <td class="px-4 py-3">
+          Manutenção
+         </td>
+        </tr>
+        <tr class="hover:bg-[#F9F9F9]">
+         <td class="px-4 py-3">
+          015
+         </td>
+         <td class="px-4 py-3">
+          Troca de peças concluída
+         </td>
+         <td class="px-4 py-3">
+          <span class="inline-block px-3 py-1 rounded-full text-white text-sm font-semibold bg-green-600 select-none">
+           Ativo
+          </span>
+         </td>
+         <td class="px-4 py-3">
+          Manutenção
+         </td>
+        </tr>
+       </tbody>
+      </table>
+     </div>
+    </section>
+    <!-- Configurações Section -->
+    <section aria-labelledby="configuracoesTitle" class="hidden max-w-full mx-auto bg-white rounded-lg shadow-md p-6" id="configuracoesSection" role="region" aria-label="Configurações do usuário">
+     <h2 class="text-2xl font-semibold text-[#5B2C91] mb-6 select-none" id="configuracoesTitle">
+      Configurações
+     </h2>
+     <form class="max-w-md flex flex-col gap-5" id="configForm" novalidate>
+      <div>
+       <label class="block text-sm font-medium text-gray-700 mb-1 select-none" for="configNome">
+        Nome completo
+       </label>
+       <input aria-required="true" class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#5B2C91] focus:border-transparent" id="configNome" name="configNome" placeholder="Seu nome completo" required="" type="text" value="Emelly Souza"/>
+      </div>
+      <div>
+       <label class="block text-sm font-medium text-gray-700 mb-1 select-none" for="configEmail">
+        E-mail corporativo
+       </label>
+       <input aria-required="true" autocomplete="email" class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#5B2C91] focus:border-transparent" id="configEmail" name="configEmail" placeholder="seu.email@empresa.com" required="" type="email" value="emelly.souza@simec.com.br"/>
+      </div>
+      <div>
+       <label class="block text-sm font-medium text-gray-700 mb-1 select-none" for="configSenha">
+        Senha
+       </label>
+       <input aria-required="true" autocomplete="new-password" class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#5B2C91] focus:border-transparent" id="configSenha" name="configSenha" placeholder="********" required="" type="password"/>
+      </div>
+      <div>
+       <label class="block text-sm font-medium text-gray-700 mb-1 select-none" for="configSenhaConfirm">
+        Confirmar senha
+       </label>
+       <input aria-required="true" autocomplete="new-password" class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#5B2C91] focus:border-transparent" id="configSenhaConfirm" name="configSenhaConfirm" placeholder="********" required="" type="password"/>
+      </div>
+      <div>
+       <label class="block text-sm font-medium text-gray-700 mb-1 select-none" for="configSetor">
+        Setor
+       </label>
+       <select aria-required="true" class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#5B2C91] focus:border-transparent" id="configSetor" name="configSetor" required="">
+        <option value="Produção">
+         Produção
+        </option>
+        <option value="Logística">
+         Logística
+        </option>
+        <option value="Manutenção">
+         Manutenção
+        </option>
+        <option value="Administração">
+         Administração
+        </option>
+        <option value="TI Infra">
+         TI Infra
+        </option>
+        <option value="Redes">
+         Redes
+        </option>
+       </select>
+      </div>
+      <button class="bg-[#5B2C91] hover:bg-[#A087C2] text-white font-semibold py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#A087C2]" type="submit">
+       Salvar Alterações
+      </button>
+     </form>
+    </section>
+  </main>
+  <!-- Modal Envio de Mensagem -->
+  <div aria-labelledby="modalTitle" aria-modal="true" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden" id="modalOverlay" role="dialog">
+   <div class="bg-white rounded-lg max-w-md w-full mx-4 p-6 shadow-lg relative" role="document">
+    <button aria-label="Fechar modal" class="absolute top-3 right-3 text-gray-500 hover:text-[#5B2C91] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#5B2C91]" id="closeModal">
+     <i class="fas fa-times fa-lg">
+     </i>
+    </button>
+    <h3 class="text-xl font-semibold text-[#5B2C91] mb-4 select-none" id="modalTitle">
+     Enviar Mensagem
+    </h3>
+    <form class="flex flex-col gap-4" id="messageForm" novalidate>
+     <div>
+      <label class="block text-sm font-medium text-gray-700 mb-1 select-none" for="nomeTecnico">
+       Técnico
+      </label>
+      <input class="w-full rounded-md border border-gray-300 px-3 py-2 bg-gray-100 cursor-not-allowed" id="nomeTecnico" name="nomeTecnico" readonly="" type="text"/>
+     </div>
+     <div>
+      <label class="block text-sm font-medium text-gray-700 mb-1 select-none" for="mensagem">
+       Mensagem
+      </label>
+      <textarea class="w-full rounded-md border border-gray-300 px-3 py-2 resize-y focus:outline-none focus:ring-2 focus:ring-[#5B2C91] focus:border-transparent" id="mensagem" name="mensagem" placeholder="Digite sua mensagem aqui..." required="" rows="4"></textarea>
+     </div>
+     <div>
+      <label class="block text-sm font-medium text-gray-700 mb-1 select-none" for="dataInicioMsg">
+       Data de Início da Negociação
+      </label>
+      <input class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#5B2C91] focus:border-transparent" id="dataInicioMsg" name="dataInicioMsg" type="date"/>
+     </div>
+     <div>
+      <label class="block text-sm font-medium text-gray-700 mb-1 select-none" for="dataFimMsg">
+       Data de Fim da Negociação
+      </label>
+      <input class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#5B2C91] focus:border-transparent" id="dataFimMsg" name="dataFimMsg" type="date"/>
+     </div>
+     <div class="flex justify-end gap-3">
+      <button class="bg-[#A087C2] hover:bg-[#5B2C91] text-white font-semibold px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#5B2C91]" id="btnNegociar" type="button">
+       Negociar Prazo
+      </button>
+      <button class="bg-[#5B2C91] hover:bg-[#A087C2] text-white font-semibold px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#A087C2]" type="submit">
+       Enviar
+      </button>
+     </div>
+    </form>
+   </div>
+  </div>
+  <!-- Modal Negociação de Prazos -->
+  <div aria-labelledby="modalNegociarTitle" aria-modal="true" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden" id="modalNegociar" role="dialog">
+   <div class="bg-white rounded-lg max-w-md w-full mx-4 p-6 shadow-lg relative" role="document">
+    <button aria-label="Fechar modal de negociação" class="absolute top-3 right-3 text-gray-500 hover:text-[#5B2C91] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#5B2C91]" id="closeModalNegociar">
+     <i class="fas fa-times fa-lg">
+     </i>
+    </button>
+    <h3 class="text-xl font-semibold text-[#5B2C91] mb-4 select-none" id="modalNegociarTitle">
+     Negociação de Prazos
+    </h3>
+    <form class="flex flex-col gap-4" id="negociarForm" novalidate>
+     <div>
+      <label class="block text-sm font-medium text-gray-700 mb-1 select-none" for="dataInicioNegociar">
+       Data de Início
+      </label>
+      <input class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#5B2C91] focus:border-transparent" id="dataInicioNegociar" name="dataInicioNegociar" required="" type="date"/>
+     </div>
+     <div>
+      <label class="block text-sm font-medium text-gray-700 mb-1 select-none" for="dataFimNegociar">
+       Data de Fim
+      </label>
+      <input class="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#5B2C91] focus:border-transparent" id="dataFimNegociar" name="dataFimNegociar" required="" type="date"/>
+     </div>
+     <div class="flex justify-end gap-3">
+      <button class="bg-[#5B2C91] hover:bg-[#A087C2] text-white font-semibold px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#A087C2]" type="submit">
+       Enviar
+      </button>
+     </div>
+    </form>
+   </div>
+  </div>
+  <script>
+   (() => {
+      // Login and Register Elements
+      const loginScreen = document.getElementById("loginScreen");
+      const loginForm = document.getElementById("loginForm");
+      const btnOpenRegister = document.getElementById("btnOpenRegister");
+      const registerModal = document.getElementById("registerModal");
+      const closeRegisterModal = document.getElementById("closeRegisterModal");
+      const registerForm = document.getElementById("registerForm");
+      const cancelRegister = document.getElementById("cancelRegister");
+
+      // App Elements
+      const appWrapper = document.getElementById("appWrapper");
+      const greeting = document.getElementById("greeting");
+
+      // Sections
+      const homeSection = document.getElementById("homeSection");
+      const equipamentosSection = document.getElementById("equipamentosSection");
+      const chamadosSection = document.getElementById("chamadosSection");
+      const controleTecnicosSection = document.getElementById("controleTecnicosSection");
+      const relatoriosSection = document.getElementById("relatoriosSection");
+      const configuracoesSection = document.getElementById("configuracoesSection");
+
+      // Sidebar menu links
+      const menuHome = document.getElementById("menuHome");
+      const menuEquipamentos = document.getElementById("menuEquipamentos");
+      const menuControleTecnicos = document.getElementById("menuControleTecnicos");
+      const menuChamados = document.getElementById("menuChamados");
+      const menuRelatorios = document.getElementById("menuRelatorios");
+      const menuConfiguracoes = document.getElementById("menuConfiguracoes");
+
+      // Equipamentos table elements
+      const tableBodyEquip = document.getElementById("tableBodyEquip");
+      const filterSetorEquip = document.getElementById("filterSetorEquip");
+      const filterStatusEquip = document.getElementById("filterStatusEquip");
+      const searchInputEquip = document.getElementById("searchInputEquip");
+      const prevPageEquip = document.getElementById("prevPageEquip");
+      const nextPageEquip = document.getElementById("nextPageEquip");
+      const pageInfoEquip = document.getElementById("pageInfoEquip");
+
+      // Chamados table elements
+      const tableBodyChamados = document.getElementById("tableBodyChamados");
+
+      // Modal Envio de Mensagem
+      const modalOverlay = document.getElementById("modalOverlay");
+      const closeModalBtn = document.getElementById("closeModal");
+      const nomeTecnicoInput = document.getElementById("nomeTecnico");
+      const mensagemTextarea = document.getElementById("mensagem");
+      const dataInicioMsg = document.getElementById("dataInicioMsg");
+      const dataFimMsg = document.getElementById("dataFimMsg");
+      const messageForm = document.getElementById("messageForm");
+      const btnNegociar = document.getElementById("btnNegociar");
+
+      // Modal Negociação de Prazos
+      const modalNegociar = document.getElementById("modalNegociar");
+      const closeModalNegociarBtn = document.getElementById("closeModalNegociar");
+      const negociarForm = document.getElementById("negociarForm");
+      const dataInicioNegociar = document.getElementById("dataInicioNegociar");
+      const dataFimNegociar = document.getElementById("dataFimNegociar");
+
+      // Pagination and filtering for Equipamentos
+      let equipamentosRows = Array.from(tableBodyEquip.querySelectorAll("tr")).map((tr) => {
+        const tds = tr.querySelectorAll("td");
+        return {
+          id: tds[0].textContent.trim(),
+          status: tds[1].textContent.trim(),
+          setor: tds[2].textContent.trim(),
+          tecnico: tds[3].textContent.trim(),
+          element: tr,
+        };
+      });
+      const rowsPerPageEquip = 5;
+      let currentPageEquip = 1;
+      let filteredEquipamentos = [...equipamentosRows];
+
+      function updateEquipamentosTable() {
+        tableBodyEquip.innerHTML = "";
+
+        const totalPages = Math.ceil(filteredEquipamentos.length / rowsPerPageEquip) || 1;
+        if (currentPageEquip > totalPages) currentPageEquip = totalPages;
+
+        const start = (currentPageEquip - 1) * rowsPerPageEquip;
+        const end = start + rowsPerPageEquip;
+        const pageData = filteredEquipamentos.slice(start, end);
+
+        pageData.forEach((row) => {
+          tableBodyEquip.appendChild(row.element);
+        });
+
+        pageInfoEquip.textContent = `Página ${currentPageEquip} de ${totalPages}`;
+        prevPageEquip.disabled = currentPageEquip === 1;
+        nextPageEquip.disabled = currentPageEquip === totalPages;
+      }
+
+      function applyEquipamentosFilters() {
+        const setorVal = filterSetorEquip.value.toLowerCase();
+        const statusVal = filterStatusEquip.value.toLowerCase();
+        const searchVal = searchInputEquip.value.toLowerCase();
+
+        filteredEquipamentos = equipamentosRows.filter((row) => {
+          const matchSetor = setorVal ? row.setor.toLowerCase() === setorVal : true;
+          const matchStatus = statusVal ? row.status.toLowerCase() === statusVal : true;
+          const matchSearch = searchVal
+            ? row.id.toLowerCase().includes(searchVal) ||
+              row.tecnico.toLowerCase().includes(searchVal)
+            : true;
+          return matchSetor && matchStatus && matchSearch;
+        });
+
+        currentPageEquip = 1;
+        updateEquipamentosTable();
+      }
+
+      filterSetorEquip.addEventListener("change", applyEquipamentosFilters);
+      filterStatusEquip.addEventListener("change", applyEquipamentosFilters);
+      searchInputEquip.addEventListener("input", applyEquipamentosFilters);
+
+      prevPageEquip.addEventListener("click", () => {
+        if (currentPageEquip > 1) {
+          currentPageEquip--;
+          updateEquipamentosTable();
+        }
+      });
+
+      nextPageEquip.addEventListener("click", () => {
+        const totalPages = Math.ceil(filteredEquipamentos.length / rowsPerPageEquip) || 1;
+        if (currentPageEquip < totalPages) {
+          currentPageEquip++;
+          updateEquipamentosTable();
+        }
+      });
+
+      // Navigation between sections
+      function hideAllSections() {
+        homeSection.classList.add("hidden");
+        equipamentosSection.classList.add("hidden");
+        chamadosSection.classList.add("hidden");
+        controleTecnicosSection.classList.add("hidden");
+        relatoriosSection.classList.add("hidden");
+        configuracoesSection.classList.add("hidden");
+      }
+
+      function setActiveMenu(menuItem) {
+        [menuHome, menuEquipamentos, menuControleTecnicos, menuChamados, menuRelatorios, menuConfiguracoes].forEach((item) => {
+          item.classList.remove("bg-[#A087C2]", "font-bold");
+        });
+        menuItem.classList.add("bg-[#A087C2]", "font-bold");
+      }
+
+      menuHome.addEventListener("click", (e) => {
+        e.preventDefault();
+        hideAllSections();
+        homeSection.classList.remove("hidden");
+        setActiveMenu(menuHome);
+        document.getElementById("mainContent").focus();
+      });
+
+      menuEquipamentos.addEventListener("click", (e) => {
+        e.preventDefault();
+        hideAllSections();
+        equipamentosSection.classList.remove("hidden");
+        setActiveMenu(menuEquipamentos);
+        applyEquipamentosFilters();
+        document.getElementById("mainContent").focus();
+      });
+
+      menuControleTecnicos.addEventListener("click", (e) => {
+        e.preventDefault();
+        hideAllSections();
+        controleTecnicosSection.classList.remove("hidden");
+        setActiveMenu(menuControleTecnicos);
+        document.getElementById("mainContent").focus();
+      });
+
+      menuChamados.addEventListener("click", (e) => {
+        e.preventDefault();
+        hideAllSections();
+        chamadosSection.classList.remove("hidden");
+        setActiveMenu(menuChamados);
+        document.getElementById("mainContent").focus();
+      });
+
+      menuRelatorios.addEventListener("click", (e) => {
+        e.preventDefault();
+        hideAllSections();
+        relatoriosSection.classList.remove("hidden");
+        setActiveMenu(menuRelatorios);
+        document.getElementById("mainContent").focus();
+      });
+
+      menuConfiguracoes.addEventListener("click", (e) => {
+        e.preventDefault();
+        hideAllSections();
+        configuracoesSection.classList.remove("hidden");
+        setActiveMenu(menuConfiguracoes);
+        document.getElementById("mainContent").focus();
+      });
+
+      // Default to Home on app load
+      function showAppDefault() {
+        hideAllSections();
+        homeSection.classList.remove("hidden");
+        setActiveMenu(menuHome);
+      }
+
+      // Modal Envio de Mensagem open/close logic
+      function openMessageModal(tecnico) {
+        nomeTecnicoInput.value = tecnico;
+        mensagemTextarea.value = "";
+        dataInicioMsg.value = "";
+        dataFimMsg.value = "";
+        modalOverlay.classList.remove("hidden");
+        mensagemTextarea.focus();
+      }
+
+      function closeMessageModal() {
+        modalOverlay.classList.add("hidden");
+      }
+
+      closeModalBtn.addEventListener("click", closeMessageModal);
+      modalOverlay.addEventListener("click", (e) => {
+        if (e.target === modalOverlay) {
+          closeMessageModal();
+        }
+      });
+
+      // Modal Negociar open/close logic
+      function openNegociarModal() {
+        modalOverlay.classList.add("hidden");
+        modalNegociar.classList.remove("hidden");
+        dataInicioNegociar.value = "";
+        dataFimNegociar.value = "";
+        dataInicioNegociar.focus();
+      }
+
+      function closeNegociarModal() {
+        modalNegociar.classList.add("hidden");
+      }
+
+      closeModalNegociarBtn.addEventListener("click", closeNegociarModal);
+      modalNegociar.addEventListener("click", (e) => {
+        if (e.target === modalNegociar) {
+          closeNegociarModal();
+        }
+      });
+
+      // Handle Enviar Mensagem form submit
+      messageForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const tecnico = nomeTecnicoInput.value;
+        const mensagem = mensagemTextarea.value.trim();
+        const dataInicio = dataInicioMsg.value;
+        const dataFim = dataFimMsg.value;
+
+        if (!mensagem) {
+          alert("Por favor, digite uma mensagem antes de enviar.");
+          mensagemTextarea.focus();
+          return;
+        }
+        if ((dataInicio && !dataFim) || (!dataInicio && dataFim)) {
+          alert("Por favor, preencha ambas as datas de negociação ou deixe ambas vazias.");
+          return;
+        }
+        if (dataInicio && dataFim && dataFim < dataInicio) {
+          alert("A data de fim não pode ser anterior à data de início.");
+          return;
+        }
+        alert(`Mensagem enviada para ${tecnico}:\n\n${mensagem}\n${dataInicio && dataFim ? `Negociação de prazo: ${dataInicio} até ${dataFim}` : ""}`);
+        closeMessageModal();
+      });
+
+      btnNegociar.addEventListener("click", openNegociarModal);
+
+      // Handle Negociar form submit
+      negociarForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const dataInicio = dataInicioNegociar.value;
+        const dataFim = dataFimNegociar.value;
+        if (!dataInicio || !dataFim) {
+          alert("Por favor, preencha as datas de início e fim.");
+          return;
+        }
+        if (dataFim < dataInicio) {
+          alert("A data de fim não pode ser anterior à data de início.");
+          return;
+        }
+        alert(`Pedido de negociação de prazo enviado:\nInício: ${dataInicio}\nFim: ${dataFim}`);
+        closeNegociarModal();
+      });
+
+      // Attach event listeners to "Enviar Mensagem" buttons in Equipamentos table
+      function attachSendMessageListeners() {
+        const sendMessageButtons = document.querySelectorAll("#tableBodyEquip .send-message-btn");
+        sendMessageButtons.forEach((button) => {
+          button.addEventListener("click", () => {
+            const tecnico = button.getAttribute("data-tecnico");
+            openMessageModal(tecnico);
+          });
+        });
+      }
+
+      attachSendMessageListeners();
+
+      // Chamados buttons: Negociar Prazo and Fechar Chamado
+      const btnNegociarPrazoChamados = document.querySelectorAll(".btnNegociarPrazo");
+      const btnFecharChamado = document.querySelectorAll(".btnFecharChamado");
+
+      btnNegociarPrazoChamados.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          openNegociarModal();
+        });
+      });
+
+      btnFecharChamado.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          if (btn.disabled) return;
+          const idChamado = btn.getAttribute("data-id");
+          if (confirm(`Deseja realmente fechar o chamado ID ${idChamado}?`)) {
+            // Simulate closing chamado by disabling button and changing status
+            btn.disabled = true;
+            btn.classList.add("opacity-50", "cursor-not-allowed");
+            const row = btn.closest("tr");
+            const statusCell = row.querySelector("td:nth-child(4) span");
+            statusCell.textContent = "Finalizado";
+            statusCell.className = "inline-block px-3 py-1 rounded-full text-white text-sm font-semibold bg-green-600 select-none";
+            alert(`Chamado ID ${idChamado} fechado com sucesso.`);
+          }
+        });
+      });
+
+      // Configurações form submit
+      const configForm = document.getElementById("configForm");
+      configForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const nome = document.getElementById("configNome").value.trim();
+        const email = document.getElementById("configEmail").value.trim();
+        const senha = document.getElementById("configSenha").value;
+        const senhaConfirm = document.getElementById("configSenhaConfirm").value;
+        const setor = document.getElementById("configSetor").value;
+
+        if (!nome || !email || !setor) {
+          alert("Por favor, preencha todos os campos obrigatórios.");
+          return;
+        }
+        if (senha !== senhaConfirm) {
+          alert("As senhas não coincidem.");
+          return;
+        }
+        alert("Configurações salvas com sucesso.");
+      });
+
+      // Login form submit
+      loginForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const email = document.getElementById("emailLogin").value.trim();
+        const senha = document.getElementById("senhaLogin").value;
+        if (!email || !senha) {
+          alert("Por favor, preencha e-mail e senha.");
+          return;
+        }
+        // Simulate login success
+        greeting.textContent = `Olá, ${email.split("@")[0].replace(/\./g, " ").replace(/\b\w/g, c => c.toUpperCase())}`;
+        loginScreen.classList.add("hidden");
+        appWrapper.classList.remove("hidden");
+        showAppDefault();
+      });
+
+      // Register modal open/close
+      btnOpenRegister.addEventListener("click", () => {
+        registerModal.classList.remove("hidden");
+        document.getElementById("registerNome").focus();
+      });
+      closeRegisterModal.addEventListener("click", () => {
+        registerModal.classList.add("hidden");
+      });
+      cancelRegister.addEventListener("click", () => {
+        registerModal.classList.add("hidden");
+      });
+
+      // Register form submit
+      registerForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const nome = document.getElementById("registerNome").value.trim();
+        const email = document.getElementById("registerEmail").value.trim();
+        const senha = document.getElementById("registerSenha").value;
+        const senhaConfirm = document.getElementById("registerSenhaConfirm").value;
+        const setor = document.getElementById("registerSetor").value;
+
+        if (!nome || !email || !senha || !senhaConfirm || !setor) {
+          alert("Por favor, preencha todos os campos.");
+          return;
+        }
+        if (senha !== senhaConfirm) {
+          alert("As senhas não coincidem.");
+          return;
+        }
+        alert("Cadastro realizado com sucesso! Agora você pode entrar no sistema.");
+        registerModal.classList.add("hidden");
+      });
+
+      // Logout button
+      document.getElementById("btnLogout").addEventListener("click", () => {
+        if (confirm("Deseja realmente sair do sistema?")) {
+          appWrapper.classList.add("hidden");
+          loginScreen.classList.remove("hidden");
+          loginForm.reset();
+          registerForm.reset();
+          greeting.textContent = "Olá, Emelly";
+        }
+      });
+
+      // Initialize
+      showAppDefault();
+      updateEquipamentosTable();
+    })();
+  </script>
+ </body>
+</html>
